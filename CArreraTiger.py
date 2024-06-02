@@ -41,10 +41,10 @@ class CArreraTiger :
     def __delFile(self,file_path):
         try:
             os.remove(file_path)
-            return True
+            return 0
         except FileNotFoundError:
-            return False
+            return 1
         except PermissionError:
-            return False
+            return 2
         except Exception as e:
-            return False
+            return 3
