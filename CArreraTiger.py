@@ -48,3 +48,14 @@ class CArreraTiger :
             return 2
         except Exception as e:
             return 3
+    
+    def listSoft(self):
+        linux = self.__system.osLinux()
+        windows = self.__system.osWindows()
+        if ((linux==False) and (windows == True)):
+            return self.__json.lectureJSON("windows")
+        else :
+            if ((linux==True) and (windows == False)):
+                return self.__json.lectureJSON("linux")
+            else :
+                return "errror"
