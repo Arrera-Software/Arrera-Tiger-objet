@@ -1,5 +1,6 @@
 from jsonWork import*
 import urllib.request
+from dectectionOS import*
 import zipfile
 import os
 
@@ -7,14 +8,23 @@ import os
 class CArreraTiger :
     def __init__(self,url:str) :
         self.__json = jsonWork()
+        self.__system = OS()
         self.__json.loadInternet(url)
     
     def downloadFile(self,soft:str,fileName,emplacemntSoft):
-        link = self.__json.lectureJSON(soft)
+        linux = self.__system.osLinux()
+        windows = self.__system.osWindows()
+        if ((linux==False) and (windows == True)):
+            link = self.__json.lectureJSONMultiFlag("windows",soft)
+        else :
+            if ((linux==True) and (windows == False)):
+                link = self.__json.lectureJSONMultiFlag("linux",soft)
+            else :
+                return -1
         urllib.request.urlretrieve(link,fileName)  
         sortie = self.__unzip(fileName,emplacemntSoft)
         if sortie==False :
-            return 2 
+            return -2 
         else : 
             return 0
 
