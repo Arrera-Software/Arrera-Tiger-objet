@@ -63,7 +63,7 @@ class jsonWork :
             dictionnaire = self.contenuJson[flag]
             return dict(dictionnaire)
         else :
-            return ["aaaa","aaaaa","aaaa"]    
+            return {"aaaaa":"aaaa","aaaaa":"aaaa","aaaaa":"aaaa"} 
     
     def EcritureJSON(self,flag,valeur):#Permet d'ecrire une nouvelle valeur a flag definie
         if ((self.__localFile==True) and (self.__onlineFile==False)):
