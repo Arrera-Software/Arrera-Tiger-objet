@@ -11,7 +11,7 @@ class CArreraTiger :
         self.__system = OS()
         self.__json.loadInternet(url)
     
-    def downloadFile(self,soft:str,fileName,emplacemntSoft):
+    def install(self,soft:str,fileName,emplacemntSoft):
         linux = self.__system.osLinux()
         windows = self.__system.osWindows()
         if ((linux==False) and (windows == True)):
@@ -27,6 +27,17 @@ class CArreraTiger :
             return -2 
         else : 
             return 0
+    
+    def listSoft(self)->list:
+        linux = self.__system.osLinux()
+        windows = self.__system.osWindows()
+        if ((linux==False) and (windows == True)):
+            return list(self.__json.lectureJSONDict("windows").keys())
+        else :
+            if ((linux==True) and (windows == False)):
+                return list(self.__json.lectureJSONDict("linux").keys())
+            else :
+                return "errror"
 
     def __unzip(self,zipFile, floder):
         if not os.path.exists(zipFile):
@@ -47,15 +58,4 @@ class CArreraTiger :
         except PermissionError:
             return 2
         except Exception as e:
-            return 3
-    
-    def listSoft(self)->list:
-        linux = self.__system.osLinux()
-        windows = self.__system.osWindows()
-        if ((linux==False) and (windows == True)):
-            return list(self.__json.lectureJSONDict("windows").keys())
-        else :
-            if ((linux==True) and (windows == False)):
-                return list(self.__json.lectureJSONDict("linux").keys())
-            else :
-                return "errror"
+            return 3 
