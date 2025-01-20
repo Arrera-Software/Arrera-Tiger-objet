@@ -18,6 +18,33 @@ class CArreraTiger :
         self.__system = OS()
 
     def loadDepots(self,url:str):
-        self.__url = url
+        if url == "":
+            return False
+        else :
+            self.__url = url
+            self.__tigerFile.loadInternet(url)
+            return True
 
-    
+    def setEmplacementArreraSoft(self,emplacementSoft : str):
+        pass
+
+    def getEmplacementSaved(self):
+        pass
+
+    def checkUpdate(self):
+        pass
+
+    def update(self,soft : str):
+        pass
+
+    def install(self,soft : str):
+        pass
+
+    def getSoftAvailable(self):
+        pass
+
+    def getSoftInstall(self):
+        pass
+
+    def uninstall(self,soft : str):
+        pass
