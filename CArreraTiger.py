@@ -50,7 +50,7 @@ class CArreraTiger :
 
     def checkUpdate(self):
         listeSoft = []
-        self.__tigerFile.dictJson()
+        listeSoft = self.__tigerFile.dictJson().keys()
 
     def update(self,soft : str):
         pass
@@ -59,7 +59,31 @@ class CArreraTiger :
         pass
 
     def getSoftAvailable(self):
-        pass
+        listeSoft = []
+        dictAllSoft = self.__tigerFile.dictJson()
+        listeAllSoft = list(dictAllSoft.keys())
+
+        windowsOS = self.__system.osWindows()
+        linuxOs = self.__system.osLinux()
+        for i in range(0,len(listeAllSoft)):
+            if (windowsOS == True and linuxOs == False
+                    and dictAllSoft[listeAllSoft[i]]["namezipwin"]!=""
+                    and dictAllSoft[listeAllSoft[i]]["linkWin"]!=""
+                    and dictAllSoft[listeAllSoft[i]]["namefolderWin"]!=""):
+                listeSoft.append(listeAllSoft[i])
+            else :
+                if (windowsOS == False and linuxOs == True
+                        and dictAllSoft[listeAllSoft[i]]["nameziplinux"]!=""
+                        and dictAllSoft[listeAllSoft[i]]["linkLinux"]!=""
+                        and dictAllSoft[listeAllSoft[i]]["namefolderLinux"]!=""):
+                    listeSoft.append(listeAllSoft[i])
+
+        if (len(listeSoft) == 0):
+            return "error"
+        else :
+            return listeSoft
+
+
 
     def getSoftInstall(self):
         pass
