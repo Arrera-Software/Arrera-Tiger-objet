@@ -83,8 +83,6 @@ class CArreraTiger :
         else :
             return listeSoft
 
-
-
     def getSoftInstall(self):
         pass
 
