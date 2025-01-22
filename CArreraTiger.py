@@ -117,6 +117,41 @@ class CArreraTiger :
                 if (len(listOut) == 0):
                     return "Accun logiciel installé"
                 else :
+                    if ("arrera-interface" in listOut):
+                        self.__tigerFile.EcritureJSON("arrera-interface","1")
+                    else :
+                        self.__tigerFile.EcritureJSON("arrera-interface","0")
+
+                    if ("ryley" in listOut):
+                        self.__tigerFile.EcritureJSON("ryley","1")
+                    else :
+                        self.__tigerFile.EcritureJSON("ryley","0")
+
+                    if ("six" in listOut):
+                        self.__tigerFile.EcritureJSON("six","1")
+                    else :
+                        self.__tigerFile.EcritureJSON("six","0")
+
+                    if ("arrera-raccourci" in listOut):
+                        self.__tigerFile.EcritureJSON("arrera-raccourci","1")
+                    else :
+                        self.__tigerFile.EcritureJSON("arrera-raccourci","0")
+
+                    if ("arrera-postite" in listOut):
+                        self.__tigerFile.EcritureJSON("arrera-postite","1")
+                    else :
+                        self.__tigerFile.EcritureJSON("arrera-postite","0")
+
+                    if ("arrera-video-download" in listOut):
+                        self.__tigerFile.EcritureJSON("arrera-video-download","1")
+                    else :
+                        self.__tigerFile.EcritureJSON("arrera-video-download","0")
+
+                    if ("arrera-copilote" in listOut):
+                        self.__tigerFile.EcritureJSON("arrera-copilote","1")
+                    else :
+                        self.__tigerFile.EcritureJSON("arrera-copilote","0")
+
                     return listOut
 
             except PermissionError:
