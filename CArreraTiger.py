@@ -51,14 +51,55 @@ class CArreraTiger :
             return True
 
     def checkUpdate(self):
-        listeSoft = []
-        listeSoft = self.__tigerFile.dictJson().keys()
+        pass
 
     def update(self,soft : str):
         pass
 
     def install(self,soft : str):
-        pass
+        softInstalled = self.getSoftInstall()
+        softAvailable = self.getSoftAvailable()
+
+        if (soft in softInstalled):
+            return False
+        else :
+            if soft not in softAvailable :
+                return False
+            else:
+                linuxOs = self.__system.osLinux()
+                windowsOS = self.__system.osWindows()
+                dictSofts = self.__depotFile.dictJson()
+                dictSoft = dictSofts[soft]
+                if (windowsOS == True):
+                    link = dictSoft["linkWin"]
+                    fileName = self.__emplacementSoft+dictSoft["namezipwin"]
+                else :
+                    if (linuxOs == True):
+                        link = dictSoft["linkLinux"]
+                        fileName = self.__emplacementSoft+dictSoft["nameziplinux"]
+                    else :
+                        return False
+
+                if (link == ""):
+                    return False
+                else :
+                    urllib.request.urlretrieve(link,fileName)
+                    if not os.path.exists(fileName):
+                        return False
+                    if not os.path.exists(self.__emplacementSoft):
+                        os.makedirs(self.__emplacementSoft)
+                    with zipfile.ZipFile(fileName, 'r') as zip_ref:
+                        zip_ref.extractall(self.__emplacementSoft)
+                        try:
+                            os.remove(fileName)
+                            self.getSoftInstall()
+                            return True
+                        except FileNotFoundError:
+                            return False
+                        except PermissionError:
+                            return False
+                        except Exception as e:
+                            return False
 
     def getSoftAvailable(self):
         listeSoft = []
