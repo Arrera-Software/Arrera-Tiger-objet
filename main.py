@@ -1,7 +1,16 @@
 from CArreraTiger import*
+import tkinter.filedialog as fd
 
-objTiger = CArreraTiger("tigerConf.json")
+def main():
+    objTiger = CArreraTiger("tigerConf.json")
 
-objTiger.loadDepots("https://arrera-software.fr/tigerFile.json")
+    if (objTiger.loadDepots("https://arrera-software.fr/tigerFile.json")==True):
+        print("Depot chargé")
+        print(objTiger.getSoftAvailable())
+        if objTiger.setEmplacementArreraSoft(fd.askdirectory()) == True:
+            print("Emplacement enregistré")
+            print(objTiger.getSoftInstall())
 
-print(objTiger.getSoftAvailable())
+
+if __name__ == "__main__":
+    main()
