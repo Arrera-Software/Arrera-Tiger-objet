@@ -60,7 +60,7 @@
     "namefolderLinux" : "Arrera-Tiger-Interface-Linux",
     "img" : "https://raw.githubusercontent.com/Arrera-Software/Arrera-Tiger-Interface/refs/heads/main/image/ArreraTiger.png"},
 
-  "arrera-video-download ": {
+  "arrera-video-download": {
     "version" : "I2024-4.00",
     "linkWin" : "https://github.com/Arrera-Software/Arrera-VideoDownload/releases/download/I2024-4.00/Arrera-VideoDownload-WIndows.zip",
     "linkLinux" : "",
