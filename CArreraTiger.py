@@ -1,4 +1,5 @@
-from jsonWork import*
+from jsonWorkOnline import*
+from travailJSON import*
 import urllib.request
 from dectectionOS import*
 import zipfile
@@ -12,10 +13,9 @@ class CArreraTiger :
         self.__url = ""
         self.__emplacementSoft = ""
         # Initialisation de l'objet pour lire le depot
-        self.__depotFile = jsonWork()
+        self.__depotFile = jsonWorkOnline()
         # Chargement du fichier local
-        self.__tigerFile = jsonWork()
-        self.__tigerFile.loadFile(tigerFile)
+        self.__tigerFile = jsonWork(tigerFile)
         # Initialisation de l'objet pour la detection du systeme d'explotation
         self.__system = OS()
 
@@ -24,7 +24,7 @@ class CArreraTiger :
             return False
         else :
             self.__url = url
-            self.__tigerFile.loadInternet(url)
+            self.__depotFile.loadInternet(url)
             return True
 
     def loadEmplacementFile(self):
@@ -62,7 +62,7 @@ class CArreraTiger :
 
     def getSoftAvailable(self):
         listeSoft = []
-        dictAllSoft = self.__tigerFile.dictJson()
+        dictAllSoft = self.__depotFile.dictJson()
         listeAllSoft = list(dictAllSoft.keys())
 
         windowsOS = self.__system.osWindows()
@@ -90,7 +90,7 @@ class CArreraTiger :
             return "error"
         else :
             softAvailable = self.getSoftAvailable()
-            dictSoft = self.__tigerFile.dictJson()
+            dictSoft = self.__depotFile.dictJson()
             windowsOS = self.__system.osWindows()
             linuxOs = self.__system.osLinux()
             listOut = []
