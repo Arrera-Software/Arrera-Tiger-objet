@@ -7,6 +7,8 @@
     "nameziplinux" : "Arrera-Interface-Linux.zip ",
     "namefolderWin" : "Arrera-interface-Windows",
     "namefolderLinux" : "Arrera-Interface-Linux",
+    "nameexelinux": "Arrera-Interface",
+    "nameexewin": "Arrera-Interface.exe",
     "img" : "https://raw.githubusercontent.com/Arrera-Software/Arrera-Interface/refs/heads/master/ArreraI2024.png"},
 
   "ryley": {
@@ -17,6 +19,8 @@
     "nameziplinux" : "Ryley-linux-x64.zip",
     "namefolderWin" : "Ryley-windows-x64",
     "namefolderLinux" : "Ryley-linux-x64",
+    "nameexelinux": "",
+    "nameexewin": "",
     "img" : "https://raw.githubusercontent.com/Arrera-Software/Ryley/refs/heads/main/asset/Ryley.png"},
 
   "six": {
@@ -27,6 +31,8 @@
     "nameziplinux" : "",
     "namefolderWin" : "Six",
     "namefolderLinux" : "",
+    "nameexelinux": "",
+    "nameexewin": "",
     "img" : "https://raw.githubusercontent.com/Arrera-Software/Six/refs/heads/main/asset/logo.png"},
 
   "arrera-raccourci": {
@@ -37,6 +43,8 @@
     "nameziplinux" : "Arrera-raccourci-linux-x64.zip ",
     "namefolderWin" : "Arrera-raccourci-windows-x64",
     "namefolderLinux" : "Arrera-raccourci-linux-x64",
+    "nameexelinux": "Arrera-Raccourci",
+    "nameexewin": "Arrera-Raccourci.exe",
     "img" : "https://raw.githubusercontent.com/Arrera-Software/Arrera-raccourci/refs/heads/main/image/icon.png"},
 
   "arrera-postite": {
@@ -47,6 +55,8 @@
     "nameziplinux" : "Arrera-Postite-Linux-x64.zip",
     "namefolderWin" : "Arrera-Postite-windows-x64",
     "namefolderLinux" : "Arrera-Postite-Linux-x64",
+    "nameexelinux": "Arrera-Postite",
+    "nameexewin": "Arrera-Postite.exe",
     "img" : "https://raw.githubusercontent.com/Arrera-Software/Arrera-Postite/refs/heads/master/icon%20postite.png"},
 
 
@@ -58,6 +68,8 @@
     "nameziplinux" : "Arrera-Tiger-Interface-Linux.zip",
     "namefolderWin" : "Arrera-Tiger-Interface-Windows",
     "namefolderLinux" : "Arrera-Tiger-Interface-Linux",
+    "nameexelinux": "ryley",
+    "nameexewin": "ryley.exe",
     "img" : "https://raw.githubusercontent.com/Arrera-Software/Arrera-Tiger-Interface/refs/heads/main/image/ArreraTiger.png"},
 
   "arrera-video-download": {
@@ -68,6 +80,8 @@
     "nameziplinux" : "",
     "namefolderWin" : "Arrera-VideoDownload-WIndows",
     "namefolderLinux" : "",
+    "nameexelinux": "",
+    "nameexewin": "",
     "img" : "https://raw.githubusercontent.com/Arrera-Software/Arrera-VideoDownload/refs/heads/main/image/ArreraVideoDownload.png"},
 
   "arrera-copilote": {
@@ -78,5 +92,7 @@
     "nameziplinux" : "",
     "namefolderWin" : "",
     "namefolderLinux" : "",
+    "nameexelinux": "",
+    "nameexewin": "",
     "img" : "https://github.com/Arrera-Software/Arrera-Copilote/blob/main/asset/icon/copilote/icon.png?raw=true"}
 }
