@@ -51,7 +51,7 @@
     "namefolderLinux" : "Arrera-raccourci-linux-x64",
     "nameexelinux": "Arrera-Raccourci",
     "nameexewin": "Arrera-Raccourci.exe",
-    "iconLinux": "",
+    "iconLinux": "image/icon.png",
     "iconWin": "",
     "img" : "https://raw.githubusercontent.com/Arrera-Software/Arrera-raccourci/refs/heads/main/image/icon.png"},
 
