@@ -93,15 +93,17 @@ class CArreraTiger :
                         try:
                             os.remove(fileName)
                             self.getSoftInstall()
-                            if (linuxOs == True):
+                            if (linuxOs == True): # Mise en place du raccourci sur linux
                                 nameExe = dictSoft["nameexelinux"]
+                                # Creation du fichier lauch.sh qui permet de lancer le logiciel
                                 with open(f"{self.__emplacementSoft}/{dictSoft['namefolderLinux']}/lauch.sh", "w") as file:
                                     file.write("#!/bin/bash\n"
                                                "cd "+self.__emplacementSoft+"/"+dictSoft['namefolderLinux']+
                                                "\n./"+nameExe)
+                                # Rendu du logiciel executable et du fichier lauch.sh
                                 os.chmod(f"{self.__emplacementSoft}/{dictSoft['namefolderLinux']}/lauch.sh",0o777)
                                 os.chmod(f"{self.__emplacementSoft}/{dictSoft['namefolderLinux']}/{nameExe}",0o777)
-
+                                # Ecrire le fichier .desktop
                                 contentDesk = ("[Desktop Entry]"+
                                                "\nVersion="+dictSoft["version"]+
                                                "\nType=Application"+
@@ -109,15 +111,12 @@ class CArreraTiger :
                                                "\nExec="+self.__emplacementSoft+"/"+dictSoft['namefolderLinux']+"/lauch.sh"+
                                                "\nTerminal=false"+
                                                "\nStartupNotify=false")
-
+                                # Ajouter l'icone si elle existe
                                 if dictSoft["iconLinux"] != "":
                                     contentDesk += "\nIcon="+self.__emplacementSoft+"/"+dictSoft['namefolderLinux']+"/"+dictSoft["iconLinux"]
-
-
-                                home_dir = os.path.expanduser("~")
-                                print(home_dir)
-
-                                with open("/home/baptistep/test.desktop", "w") as file :
+                                dir =  os.path.expanduser("~")+ "/.local/share/applications/"+soft+".desktop"
+                                # Ecrire le fichier .desktop
+                                with open(dir, "w") as file :
                                     file.write(contentDesk)
                             return True
                         except FileNotFoundError:
