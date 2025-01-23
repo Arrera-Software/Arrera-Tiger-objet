@@ -29,7 +29,7 @@ class CArreraTiger :
 
     def loadEmplacementFile(self):
         folder = self.__tigerFile.lectureJSON("folder")
-        if folder == "error":
+        if folder == "":
             return False
         else :
             self.__emplacementSoft = folder
