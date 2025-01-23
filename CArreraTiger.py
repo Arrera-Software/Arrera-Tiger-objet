@@ -93,6 +93,32 @@ class CArreraTiger :
                         try:
                             os.remove(fileName)
                             self.getSoftInstall()
+                            if (linuxOs == True):
+                                nameExe = dictSoft["nameexelinux"]
+                                with open(f"{self.__emplacementSoft}/{dictSoft['namefolderLinux']}/lauch.sh", "w") as file:
+                                    file.write("#!/bin/bash\n"
+                                               "cd "+self.__emplacementSoft+"/"+dictSoft['namefolderLinux']+
+                                               "\n./"+nameExe)
+                                os.chmod(f"{self.__emplacementSoft}/{dictSoft['namefolderLinux']}/lauch.sh",0o777)
+                                os.chmod(f"{self.__emplacementSoft}/{dictSoft['namefolderLinux']}/{nameExe}",0o777)
+
+                                contentDesk = ("[Desktop Entry]"+
+                                               "\nVersion="+dictSoft["version"]+
+                                               "\nType=Application"+
+                                               "\nName="+self.formatNameApp(soft)+
+                                               "\nExec="+self.__emplacementSoft+"/"+dictSoft['namefolderLinux']+"/lauch.sh"+
+                                               "\nTerminal=false"+
+                                               "\nStartupNotify=false")
+
+                                if dictSoft["iconLinux"] != "":
+                                    contentDesk += "\nIcon="+self.__emplacementSoft+"/"+dictSoft['namefolderLinux']+"/"+dictSoft["iconLinux"]
+
+
+                                home_dir = os.path.expanduser("~")
+                                print(home_dir)
+
+                                with open("/home/baptistep/test.desktop", "w") as file :
+                                    file.write(contentDesk)
                             return True
                         except FileNotFoundError:
                             return False
@@ -203,3 +229,15 @@ class CArreraTiger :
 
     def uninstall(self,soft : str):
         pass
+
+    def formatNameApp(self, nameApp:str):
+        # Supprimer les tirets
+        nameApp = nameApp.replace("-", " ")
+
+        # Mettre la première lettre en majuscule
+        nameApp = nameApp.capitalize()
+
+        # Mettre la première lettre après chaque espace en majuscule
+        nameApp = ' '.join(word.capitalize() for word in nameApp.split())
+
+        return nameApp
