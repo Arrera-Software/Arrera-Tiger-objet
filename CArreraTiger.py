@@ -96,7 +96,6 @@ class CArreraTiger :
                             if (linuxOs == True): # Mise en place du raccourci sur linux
                                 os.remove(fileName)
                                 nameExe = dictSoft["nameexelinux"]
-
                                 # Creation du fichier lauch.sh qui permet de lancer le logiciel
                                 with open(f"{self.__emplacementSoft}/{dictSoft['namefolderLinux']}/lauch.sh", "w") as file:
                                     file.write("#!/bin/bash\n"
@@ -256,9 +255,17 @@ class CArreraTiger :
             except Exception as e:
                 return "Une erreur s'est produite"
 
-
     def uninstall(self,soft : str):
-        pass
+        if (soft == ""):
+            return False
+        else :
+            softInstalled = self.getSoftInstall()
+            if (soft in softInstalled):
+                
+                return True
+            else :
+                return False
+
 
     def formatNameApp(self, nameApp:str):
         # Supprimer les tirets
@@ -271,3 +278,13 @@ class CArreraTiger :
         nameApp = ' '.join(word.capitalize() for word in nameApp.split())
 
         return nameApp
+
+    def __writeFolder(self,soft:str):
+        dictSoft = self.__depotFile.dictJson()
+        if (self.__system.osLinux() == True):
+            self.__tigerFile. self.__emplacementSoft+"/"+dictSoft[soft]["namefolderLinux"]
+        else :
+            if (self.__system.osWindows() == True):
+                return self.__emplacementSoft+"/"+dictSoft[soft]["namefolderWin"]
+            else :
+                return False
