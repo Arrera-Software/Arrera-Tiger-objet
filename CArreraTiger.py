@@ -72,7 +72,7 @@ class CArreraTiger :
                 dictSoft = dictSofts[soft]
                 if (windowsOS == True):
                     link = dictSoft["linkWin"]
-                    fileName = self.__emplacementSoft+dictSoft["namezipwin"]
+                    fileName = self.__emplacementSoft+"/"+dictSoft["namezipwin"]
                 else :
                     if (linuxOs == True):
                         link = dictSoft["linkLinux"]
@@ -90,10 +90,11 @@ class CArreraTiger :
                         os.makedirs(self.__emplacementSoft)
                     with zipfile.ZipFile(fileName, 'r') as zip_ref:
                         zip_ref.extractall(self.__emplacementSoft)
+                        zip_ref.close()
                         try:
-                            os.remove(fileName)
                             self.getSoftInstall()
                             if (linuxOs == True): # Mise en place du raccourci sur linux
+                                os.remove(fileName)
                                 nameExe = dictSoft["nameexelinux"]
                                 # Creation du fichier lauch.sh qui permet de lancer le logiciel
                                 with open(f"{self.__emplacementSoft}/{dictSoft['namefolderLinux']}/lauch.sh", "w") as file:
@@ -118,6 +119,12 @@ class CArreraTiger :
                                 # Ecrire le fichier .desktop
                                 with open(dir, "w") as file :
                                     file.write(contentDesk)
+                            else :
+                                if (windowsOS == True):
+                                    fileName = fileName.replace("/","\\")
+                                    os.system(f'del /f /q "{fileName}"')
+                                    emplacementExe = self.__emplacementSoft+dictSoft["namefolderWin"]+"/"+dictSoft["nameexewin"]
+                                    print(emplacementExe)
                             return True
                         except FileNotFoundError:
                             return False
