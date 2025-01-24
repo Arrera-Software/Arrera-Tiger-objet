@@ -96,11 +96,13 @@ class CArreraTiger :
                             if (linuxOs == True): # Mise en place du raccourci sur linux
                                 os.remove(fileName)
                                 nameExe = dictSoft["nameexelinux"]
+
                                 # Creation du fichier lauch.sh qui permet de lancer le logiciel
                                 with open(f"{self.__emplacementSoft}/{dictSoft['namefolderLinux']}/lauch.sh", "w") as file:
                                     file.write("#!/bin/bash\n"
                                                "cd "+self.__emplacementSoft+"/"+dictSoft['namefolderLinux']+
                                                "\n./"+nameExe)
+                                    file.close()
                                 # Rendu du logiciel executable et du fichier lauch.sh
                                 os.chmod(f"{self.__emplacementSoft}/{dictSoft['namefolderLinux']}/lauch.sh",0o777)
                                 os.chmod(f"{self.__emplacementSoft}/{dictSoft['namefolderLinux']}/{nameExe}",0o777)
@@ -119,27 +121,32 @@ class CArreraTiger :
                                 # Ecrire le fichier .desktop
                                 with open(dir, "w") as file :
                                     file.write(contentDesk)
+                                    file.close()
+
                             else :
                                 if (windowsOS == True):
+                                    # Importation de la librairy pour cree un raccourci
                                     import win32com.client
+                                    # Suppression du fichier zip
                                     fileName = fileName.replace("/","\\")
                                     os.system(f'del /f /q "{fileName}"')
-
+                                    # Creation de variable pour le raccourci
                                     emplacementExe = r""+self.__emplacementSoft+dictSoft["namefolderWin"]+"/"+dictSoft["nameexewin"]
                                     shorcutPath = r""+str(os.path.join(os.environ['APPDATA'], 'Microsoft', 'Windows', 'Start Menu'))+"\\"+soft+".lnk"
                                     workFolder = r""+self.__emplacementSoft+dictSoft["namefolderWin"]
 
+                                    # Debut creation raccourci
                                     shell = win32com.client.Dispatch("WScript.Shell")
                                     shortcut = shell.CreateShortCut(shorcutPath)
                                     shortcut.TargetPath = emplacementExe
                                     shortcut.WorkingDirectory = workFolder
                                     shortcut.Description = self.formatNameApp(soft)
-
+                                    # Mise en place de l'icon du raccourci si elle existe
                                     icon = dictSoft["iconWin"]
                                     if (icon != ""):
                                         iconLnk = workFolder+"/"+icon
                                         shortcut.IconLocation = iconLnk
-
+                                    # Sauvegarde du raccourci
                                     shortcut.save()
 
                             return True
