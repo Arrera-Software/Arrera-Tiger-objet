@@ -56,7 +56,7 @@ class CArreraTiger :
     def update(self,soft : str):
         pass
 
-    def install(self,soft : str):
+    def install(self, soft : str):
         softInstalled = self.getSoftInstall()
         softAvailable = self.getSoftAvailable()
 
@@ -121,10 +121,27 @@ class CArreraTiger :
                                     file.write(contentDesk)
                             else :
                                 if (windowsOS == True):
+                                    import win32com.client
                                     fileName = fileName.replace("/","\\")
                                     os.system(f'del /f /q "{fileName}"')
-                                    emplacementExe = self.__emplacementSoft+dictSoft["namefolderWin"]+"/"+dictSoft["nameexewin"]
-                                    print(emplacementExe)
+
+                                    emplacementExe = r""+self.__emplacementSoft+dictSoft["namefolderWin"]+"/"+dictSoft["nameexewin"]
+                                    shorcutPath = r""+str(os.path.join(os.environ['APPDATA'], 'Microsoft', 'Windows', 'Start Menu'))+"\\"+soft+".lnk"
+                                    workFolder = r""+self.__emplacementSoft+dictSoft["namefolderWin"]
+
+                                    shell = win32com.client.Dispatch("WScript.Shell")
+                                    shortcut = shell.CreateShortCut(shorcutPath)
+                                    shortcut.TargetPath = emplacementExe
+                                    shortcut.WorkingDirectory = workFolder
+                                    shortcut.Description = self.formatNameApp(soft)
+
+                                    icon = dictSoft["iconWin"]
+                                    if (icon != ""):
+                                        iconLnk = workFolder+"/"+icon
+                                        shortcut.IconLocation = iconLnk
+
+                                    shortcut.save()
+
                             return True
                         except FileNotFoundError:
                             return False
