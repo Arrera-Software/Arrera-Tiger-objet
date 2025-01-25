@@ -275,15 +275,19 @@ class CArreraTiger :
             if (soft in softInstalled):
                 dictSofts = self.__depotFile.dictJson()
                 dictSoft = dictSofts[soft]
+
                 if (self.__system.osLinux() == True):
                     folder = self.__emplacementSoft+"/"+dictSoft["namefolderLinux"]
-                    if os.path.exists(folder):
-                        shutil.rmtree(folder)
+                    dir =  os.path.expanduser("~")+ "/.local/share/applications/"+soft+".desktop"
+                    os.remove(dir)
                 else :
                     if (self.__system.osWindows() == True):
                         folder = self.__emplacementSoft+"/"+dictSofts[soft]["namefolderWin"]
-                        if os.path.exists(folder):
-                            shutil.rmtree(folder)
+                    else :
+                        return False
+                if os.path.exists(folder):
+                    shutil.rmtree(folder)
+
                 self.getSoftInstall()
                 return True
             else :
