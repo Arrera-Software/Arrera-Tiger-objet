@@ -5,6 +5,7 @@ from dectectionOS import*
 import zipfile
 import os
 from pathlib import Path
+import shutil
 
 
 class CArreraTiger :
@@ -261,7 +262,16 @@ class CArreraTiger :
         else :
             softInstalled = self.getSoftInstall()
             if (soft in softInstalled):
-                
+                dictSofts = self.__depotFile.dictJson()
+                dictSoft = dictSofts[soft]
+                if (self.__system.osLinux() == True):
+                    folder = self.__emplacementSoft+"/"+dictSoft["namefolderLinux"]
+                    if os.path.exists(folder):
+                        shutil.rmtree(folder)
+                else :
+                    if (self.__system.osWindows() == True):
+                        folder = dictSofts[soft]["namefolderWin"]
+                self.getSoftInstall()
                 return True
             else :
                 return False
