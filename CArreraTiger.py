@@ -199,11 +199,22 @@ class CArreraTiger :
                     return "le chemin {self.__emplacementSoft} n'existe pas"
                 # Lister uniquement les dossiers
                 dossiers = [str(d) for d in chemin_path.iterdir() if d.is_dir()]
+
                 for i in range(0,len(dossiers)):
-                    dossiers[i] = (dossiers[i].replace
-                                   (self.__emplacementSoft,"").replace
-                                   ("/","").replace
-                                   ("\\",""))
+                    if linuxOs == True:
+                        dossiers[i] = (dossiers[i].replace
+                                       (self.__emplacementSoft,"").replace
+                                       ("/","").replace
+                                       ("\\",""))
+                    else :
+                        if windowsOS == True:
+                            emplacementsoft = self.__emplacementSoft.replace("/","\\")
+                            dossiers[i] = (dossiers[i].replace
+                                           (emplacementsoft,"").replace
+                                           ("/","").replace
+                                           ("\\",""))
+
+
                 for i in range(0,len(softAvailable)):
                     if (windowsOS == True) and (dictSoft[softAvailable[i]]["namefolderWin"] in dossiers):
                         listOut.append(softAvailable[i])
@@ -270,7 +281,9 @@ class CArreraTiger :
                         shutil.rmtree(folder)
                 else :
                     if (self.__system.osWindows() == True):
-                        folder = dictSofts[soft]["namefolderWin"]
+                        folder = self.__emplacementSoft+"/"+dictSofts[soft]["namefolderWin"]
+                        if os.path.exists(folder):
+                            shutil.rmtree(folder)
                 self.getSoftInstall()
                 return True
             else :
@@ -288,13 +301,3 @@ class CArreraTiger :
         nameApp = ' '.join(word.capitalize() for word in nameApp.split())
 
         return nameApp
-
-    def __writeFolder(self,soft:str):
-        dictSoft = self.__depotFile.dictJson()
-        if (self.__system.osLinux() == True):
-            self.__tigerFile. self.__emplacementSoft+"/"+dictSoft[soft]["namefolderLinux"]
-        else :
-            if (self.__system.osWindows() == True):
-                return self.__emplacementSoft+"/"+dictSoft[soft]["namefolderWin"]
-            else :
-                return False
