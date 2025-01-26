@@ -107,12 +107,12 @@ class CArreraTiger :
                                 os.chmod(f"{self.__emplacementSoft}/{dictSoft['namefolderLinux']}/lauch.sh",0o777)
                                 os.chmod(f"{self.__emplacementSoft}/{dictSoft['namefolderLinux']}/{nameExe}",0o777)
                                 # Ecrire le fichier .desktop
-                                contentDesk = ("[Desktop Entry]"+
-                                               "\nVersion="+dictSoft["version"]+
-                                               "\nType=Application"+
-                                               "\nName="+self.formatNameApp(soft)+
-                                               "\nExec="+self.__emplacementSoft+"/"+dictSoft['namefolderLinux']+"/lauch.sh"+
-                                               "\nTerminal=false"+
+                                contentDesk = ("[Desktop Entry]" +
+                                               "\nVersion=" + dictSoft["version"] +
+                                               "\nType=Application" +
+                                               "\nName=" + self.__formatNameApp(soft) +
+                                               "\nExec=" + self.__emplacementSoft + "/" + dictSoft['namefolderLinux'] + "/lauch.sh" +
+                                               "\nTerminal=false" +
                                                "\nStartupNotify=false")
                                 # Ajouter l'icone si elle existe
                                 if dictSoft["iconLinux"] != "":
@@ -142,7 +142,7 @@ class CArreraTiger :
                                     shortcut = shell.CreateShortCut(shorcutPath)
                                     shortcut.TargetPath = emplacementExe
                                     shortcut.WorkingDirectory = workFolder
-                                    shortcut.Description = self.formatNameApp(soft)
+                                    shortcut.Description = self.__formatNameApp(soft)
                                     # Mise en place de l'icon du raccourci si elle existe
                                     icon = dictSoft["iconWin"]
                                     if (icon != ""):
@@ -304,7 +304,7 @@ class CArreraTiger :
                 return False
 
 
-    def formatNameApp(self, nameApp:str):
+    def __formatNameApp(self, nameApp:str):
         # Supprimer les tirets
         nameApp = nameApp.replace("-", " ")
 
