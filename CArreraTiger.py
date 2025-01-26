@@ -52,7 +52,15 @@ class CArreraTiger :
             return True
 
     def checkUpdate(self):
-        pass
+        softInstalled = self.getSoftInstall()
+
+        if len(softInstalled) == 0 :
+            return "error"
+        else :
+            osLinux = self.__system.osLinux()
+            osWindows = self.__system.osWindows()
+
+
 
     def update(self,soft : str):
         pass
