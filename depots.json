@@ -9,8 +9,9 @@
     "namefolderLinux" : "Arrera-Interface-Linux",
     "nameexelinux": "Arrera-Interface",
     "nameexewin": "Arrera-Interface.exe",
-    "iconLinux": "",
-    "iconWin": "",
+    "iconLinux": "ArreraI2024.png",
+    "iconWin": "ArreraI2024.png",
+    "listFileUser": [],
     "img" : "https://raw.githubusercontent.com/Arrera-Software/Arrera-Interface/refs/heads/master/ArreraI2024.png"},
 
   "ryley": {
@@ -21,10 +22,11 @@
     "nameziplinux" : "Ryley-linux-x64.zip",
     "namefolderWin" : "Ryley-windows-x64",
     "namefolderLinux" : "Ryley-linux-x64",
-    "nameexelinux": "",
+    "nameexelinux": "ryley",
     "nameexewin": "",
-    "iconLinux": "",
-    "iconWin": "",
+    "iconLinux": "Ryley.png",
+    "iconWin": "Ryley.ico",
+    "listFileUser": [],
     "img" : "https://raw.githubusercontent.com/Arrera-Software/Ryley/refs/heads/main/asset/Ryley.png"},
 
   "six": {
@@ -39,11 +41,12 @@
     "nameexewin": "",
     "iconLinux": "",
     "iconWin": "",
+    "listFileUser": [],
     "img" : "https://raw.githubusercontent.com/Arrera-Software/Six/refs/heads/main/asset/logo.png"},
 
   "arrera-raccourci": {
     "version" : "I2024-2.00",
-    "linkWin" : "https://github.com/Arrera-Software/Arrera-raccourci/releases/download/I2024-2.00/Arrera-raccourci-linux-x64.zip",
+    "linkWin" : "https://github.com/Arrera-Software/Arrera-raccourci/releases/download/I2024-2.00/Arrera-raccourci-windows-x64.zip",
     "linkLinux" : "https://github.com/Arrera-Software/Arrera-raccourci/releases/download/I2024-2.00/Arrera-raccourci-linux-x64.zip",
     "namezipwin" : "Arrera-raccourci-windows-x64.zip ",
     "nameziplinux" : "Arrera-raccourci-linux-x64.zip ",
@@ -53,6 +56,7 @@
     "nameexewin": "Arrera-Raccourci.exe",
     "iconLinux": "image/icon.png",
     "iconWin": "",
+    "listFileUser": [],
     "img" : "https://raw.githubusercontent.com/Arrera-Software/Arrera-raccourci/refs/heads/main/image/icon.png"},
 
   "arrera-postite": {
@@ -67,6 +71,7 @@
     "nameexewin": "Arrera-Postite.exe",
     "iconLinux": "",
     "iconWin": "",
+    "listFileUser": [],
     "img" : "https://raw.githubusercontent.com/Arrera-Software/Arrera-Postite/refs/heads/master/icon%20postite.png"},
 
 
@@ -82,6 +87,7 @@
     "nameexewin": "ryley.exe",
     "iconLinux": "",
     "iconWin": "",
+    "listFileUser": [],
     "img" : "https://raw.githubusercontent.com/Arrera-Software/Arrera-Tiger-Interface/refs/heads/main/image/ArreraTiger.png"},
 
   "arrera-video-download": {
@@ -96,6 +102,7 @@
     "nameexewin": "",
     "iconLinux": "",
     "iconWin": "",
+    "listFileUser": [],
     "img" : "https://raw.githubusercontent.com/Arrera-Software/Arrera-VideoDownload/refs/heads/main/image/ArreraVideoDownload.png"},
 
   "arrera-copilote": {
@@ -110,5 +117,6 @@
     "nameexewin": "",
     "iconLinux": "",
     "iconWin": "",
+    "listFileUser": [],
     "img" : "https://github.com/Arrera-Software/Arrera-Copilote/blob/main/asset/icon/copilote/icon.png?raw=true"}
 }
