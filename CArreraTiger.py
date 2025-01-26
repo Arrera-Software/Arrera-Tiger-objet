@@ -123,6 +123,8 @@ class CArreraTiger :
                                     file.write(contentDesk)
                                     file.close()
 
+                                directorySoft = self.__emplacementSoft+"/"+dictSoft['namefolderLinux']
+
                             else :
                                 if (windowsOS == True):
                                     # Importation de la librairy pour cree un raccourci
@@ -148,6 +150,13 @@ class CArreraTiger :
                                         shortcut.IconLocation = iconLnk
                                     # Sauvegarde du raccourci
                                     shortcut.save()
+                                    directorySoft = self.__emplacementSoft+dictSoft["namefolderWin"]
+
+                            # Ecriture du fichier de version
+                            with open(f"{directorySoft}/VERSION", "w") as file:
+                                file.write("VERSION="+dictSoft["version"]+"\n")
+                                file.write("NAME="+soft.upper())
+                                file.close()
 
                             return True
                         except FileNotFoundError:
@@ -289,7 +298,6 @@ class CArreraTiger :
                         return False
                 if os.path.exists(folder):
                     shutil.rmtree(folder)
-
                 self.getSoftInstall()
                 return True
             else :
