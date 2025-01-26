@@ -14,7 +14,7 @@ def main():
         else :
             print("Emplacement déjà enregistré")
         print(objTiger.getSoftInstall())
-
+        print(objTiger.checkUpdate())
         sortie = input("1.Installer\n2.Uninstaller\n#")
 
         if sortie == "1":
@@ -26,7 +26,6 @@ def main():
                 soft = input("Nom du logiciel à désinstaller: ")
                 if (soft != ""):
                     print(objTiger.uninstall(soft))
-
 
 
 if __name__ == "__main__":

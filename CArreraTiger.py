@@ -55,10 +55,41 @@ class CArreraTiger :
         softInstalled = self.getSoftInstall()
 
         if len(softInstalled) == 0 :
-            return "error"
+            return
         else :
             osLinux = self.__system.osLinux()
             osWindows = self.__system.osWindows()
+            listOut = []
+            dictSoft = self.__depotFile.dictJson()
+
+            for i in range(0,len(softInstalled)):
+                if (osLinux == True):
+                   directorySoft = self.__emplacementSoft+"/"+dictSoft[softInstalled[i]]["namefolderLinux"]
+                else :
+                    if (osWindows == True):
+                        directorySoft = self.__emplacementSoft+"/"+dictSoft[softInstalled[i]]["namefolderWin"]
+                    else :
+                        return
+
+                if os.path.exists(directorySoft):
+                    versionInstalled = ""
+                    with open(directorySoft+"/VERSION", "r") as fichier:
+                        for ligne in fichier:
+                            # Si la ligne commence par "VERSION="
+                            if ligne.startswith("VERSION="):
+                                # Supprimer le saut de ligne éventuel et récupérer la valeur
+                                version = ligne.strip().split("=")[1]
+                                versionInstalled = version
+                        fichier.close()
+
+                    if (versionInstalled != "IXXXX-XXX"):
+                        versionOnline = dictSoft[softInstalled[i]]["version"]
+                        if (versionInstalled != versionOnline):
+                            listOut.append(softInstalled[i])
+                else :
+                    return
+
+            return  listOut
 
 
 
@@ -195,13 +226,13 @@ class CArreraTiger :
                     listeSoft.append(listeAllSoft[i])
 
         if (len(listeSoft) == 0):
-            return "error"
+            return ["error"]
         else :
             return listeSoft
 
     def getSoftInstall(self):
         if (self.__emplacementSoft == ""):
-            return "error"
+            return ["error"]
         else :
             softAvailable = self.getSoftAvailable()
             dictSoft = self.__depotFile.dictJson()
@@ -213,7 +244,7 @@ class CArreraTiger :
                 chemin_path = Path(self.__emplacementSoft).resolve()  # resolve() normalise le chemin
                 # Vérifier si le chemin existe
                 if not chemin_path.exists():
-                    return "le chemin {self.__emplacementSoft} n'existe pas"
+                    return ["le chemin {self.__emplacementSoft} n'existe pas"]
                 # Lister uniquement les dossiers
                 dossiers = [str(d) for d in chemin_path.iterdir() if d.is_dir()]
 
@@ -240,7 +271,7 @@ class CArreraTiger :
                             listOut.append(softAvailable[i])
 
                 if (len(listOut) == 0):
-                    return "Accun logiciel installé"
+                    return ["Accun logiciel installé"]
                 else :
                     if ("arrera-interface" in listOut):
                         self.__tigerFile.EcritureJSON("arrera-interface","1")
@@ -280,9 +311,9 @@ class CArreraTiger :
                     return listOut
 
             except PermissionError:
-                return "Erreur de permission pour accéder"
+                return ["Erreur de permission pour accéder"]
             except Exception as e:
-                return "Une erreur s'est produite"
+                return ["Une erreur s'est produite"]
 
     def uninstall(self,soft : str):
         if (soft == ""):
