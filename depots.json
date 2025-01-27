@@ -38,9 +38,9 @@
     "namefolderWin" : "Six",
     "namefolderLinux" : "",
     "nameexelinux": "",
-    "nameexewin": "",
-    "iconLinux": "",
-    "iconWin": "",
+    "nameexewin": "Six.exe",
+    "iconLinux": "asset/logo.png",
+    "iconWin": "asset/logo.png",
     "listFileUser": [],
     "img" : "https://raw.githubusercontent.com/Arrera-Software/Six/refs/heads/main/asset/logo.png"},
 
@@ -55,7 +55,7 @@
     "nameexelinux": "Arrera-Raccourci",
     "nameexewin": "Arrera-Raccourci.exe",
     "iconLinux": "image/icon.png",
-    "iconWin": "",
+    "iconWin": "icon.ico",
     "listFileUser": [],
     "img" : "https://raw.githubusercontent.com/Arrera-Software/Arrera-raccourci/refs/heads/main/image/icon.png"},
 
@@ -99,10 +99,10 @@
     "namefolderWin" : "Arrera-VideoDownload-WIndows",
     "namefolderLinux" : "",
     "nameexelinux": "",
-    "nameexewin": "",
-    "iconLinux": "",
-    "iconWin": "",
-    "listFileUser": [],
+    "nameexewin": "Arrera-Download.exe",
+    "iconLinux": "image/ArreraVideoDownload.png",
+    "iconWin": "image/ArreraVideoDownload.ico",
+    "listFileUser": ["download.json"],
     "img" : "https://raw.githubusercontent.com/Arrera-Software/Arrera-VideoDownload/refs/heads/main/image/ArreraVideoDownload.png"},
 
   "arrera-copilote": {
@@ -111,12 +111,12 @@
     "linkLinux" : "",
     "namezipwin" : "Arrera-Copilote.zip",
     "nameziplinux" : "",
-    "namefolderWin" : "",
+    "namefolderWin" : "Arrera-Copilote",
     "namefolderLinux" : "",
     "nameexelinux": "",
-    "nameexewin": "",
+    "nameexewin": "copilote.exe",
     "iconLinux": "",
-    "iconWin": "",
+    "iconWin": "asset/icon/copilote/icon.png",
     "listFileUser": [],
     "img" : "https://github.com/Arrera-Software/Arrera-Copilote/blob/main/asset/icon/copilote/icon.png?raw=true"}
 }
