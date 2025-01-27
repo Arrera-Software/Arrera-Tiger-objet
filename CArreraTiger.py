@@ -94,7 +94,25 @@ class CArreraTiger :
 
 
     def update(self,soft : str):
-        pass
+        softUpdated = self.checkUpdate()
+
+        if (soft in softUpdated):
+
+            # Recuperer la fichier de logiciel a ne pas supprimer
+
+            # Supprimer les fichier du logiciel sauf le fichier de logiciel a ne pas supprimer et le fichier de version
+
+            # Telecharger la nouvelle version du logiciel dans un dossier de cache
+
+            # Copier les fichier de la nouvelle version dans le dossier du logiciel
+
+            # Supprimer le dossier de cache
+
+            # Mettre a jour le fichier de version
+
+            return True
+        else :
+            return False
 
     def install(self, soft : str):
         softInstalled = self.getSoftInstall()
