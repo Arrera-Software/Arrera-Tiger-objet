@@ -54,7 +54,7 @@ class CArreraTiger :
     def checkUpdate(self):
         softInstalled = self.getSoftInstall()
 
-        if len(softInstalled) == 0 :
+        if softInstalled[0] == "Aucun logiciel installé":
             return
         else :
             osLinux = self.__system.osLinux()
@@ -98,9 +98,41 @@ class CArreraTiger :
 
         if (soft in softUpdated):
 
-            # Recuperer la fichier de logiciel a ne pas supprimer
+            dictSofts = self.__depotFile.dictJson()
+            dictSoft = dictSofts[soft]
+            osLinux = self.__system.osLinux()
+            osWindows = self.__system.osWindows()
 
-            # Supprimer les fichier du logiciel sauf le fichier de logiciel a ne pas supprimer et le fichier de version
+            listFileNoSuppr = dictSoft["listFileUser"]
+            listFileNoSuppr.append("VERSION")
+            if osLinux == True:
+                listFileNoSuppr.append("lauch.sh")
+                directorySoft = self.__emplacementSoft+"/"+dictSoft['namefolderLinux']
+            else :
+                if osWindows == True:
+                    directorySoft = self.__emplacementSoft+"/"+dictSoft['namefolderWin']
+                else :
+                    return False
+
+            for racine, sous_dossiers, fichiers in os.walk(directorySoft):
+                for fichier in fichiers:
+                    chemin_fichier = os.path.join(racine, fichier)
+                    # Supprime si le fichier n'est pas dans la liste des fichiers à conserver
+                    if fichier not in listFileNoSuppr:
+                        if osLinux == True:
+                            os.remove(chemin_fichier)
+                        else :
+                            os.system(f'del /f /q "{chemin_fichier}"')
+
+            for racine, sous_dossiers, fichiers in os.walk(directorySoft, topdown=False):
+                for fichier in fichiers:
+                    chemin_fichier = os.path.join(racine, fichier)
+                    if fichier not in listFileNoSuppr:
+                        os.remove(chemin_fichier)
+                for sous_dossier in sous_dossiers:
+                    chemin_sous_dossier = os.path.join(racine, sous_dossier)
+                    if not os.listdir(chemin_sous_dossier):
+                        os.rmdir(chemin_sous_dossier)
 
             # Telecharger la nouvelle version du logiciel dans un dossier de cache
 
@@ -289,7 +321,7 @@ class CArreraTiger :
                             listOut.append(softAvailable[i])
 
                 if (len(listOut) == 0):
-                    return ["Accun logiciel installé"]
+                    return ["Aucun logiciel installé"]
                 else :
                     if ("arrera-interface" in listOut):
                         self.__tigerFile.EcritureJSON("arrera-interface","1")
