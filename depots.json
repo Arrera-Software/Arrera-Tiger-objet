@@ -26,7 +26,12 @@
     "nameexewin": "",
     "iconLinux": "Ryley.png",
     "iconWin": "Ryley.ico",
-    "listFileUser": [],
+    "listFileUser": ["configLynx.json",
+      "configNeuronTutoiment.json",
+      "configNeuronVouvoiment.json","configSetting.json",
+      "configUser.json","debugConf.json","evenementUser.json",
+      "listFete.json","neuronHist.json","ryleyConfig.json",
+      "tache.json"],
     "img" : "https://raw.githubusercontent.com/Arrera-Software/Ryley/refs/heads/main/asset/Ryley.png"},
 
   "six": {
