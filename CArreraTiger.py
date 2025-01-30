@@ -135,6 +135,26 @@ class CArreraTiger :
                         os.rmdir(chemin_sous_dossier)
 
             # Telecharger la nouvelle version du logiciel dans un dossier de cache
+            if(osLinux == True):
+                link = dictSoft["linkLinux"]
+                fileName = "tmp/"+dictSoft["nameziplinux"]
+            else :
+                if (osWindows == True):
+                    link = dictSoft["linkWin"]
+                    fileName = "tmp/"+dictSoft["namezipwin"]
+                else :
+                    return False
+            if (link == ""):
+                return False
+            else :
+                urllib.request.urlretrieve(link,fileName)
+                if not os.path.exists(fileName):
+                    return False
+                if not os.path.exists("tmp/"):
+                    os.makedirs("tmp/")
+                with zipfile.ZipFile(fileName, 'r') as zip_ref:
+                    zip_ref.extractall("tmp/")
+                    zip_ref.close()
 
             # Copier les fichier de la nouvelle version dans le dossier du logiciel
 
