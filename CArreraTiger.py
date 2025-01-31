@@ -93,98 +93,77 @@ class CArreraTiger :
 
 
 
-    def update(self,soft : str):
+    def update(self, soft: str):
         softUpdated = self.checkUpdate()
 
-        if (soft in softUpdated):
-
-            dictSofts = self.__depotFile.dictJson()
-            dictSoft = dictSofts[soft]
-            osLinux = self.__system.osLinux()
-            osWindows = self.__system.osWindows()
-
-            listFileNoSuppr = dictSoft["listFileUser"]
-            listFileNoSuppr.append("VERSION")
-            if osLinux == True:
-                listFileNoSuppr.append("lauch.sh")
-                directorySoft = self.__emplacementSoft+"/"+dictSoft['namefolderLinux']
-            else :
-                if osWindows == True:
-                    directorySoft = self.__emplacementSoft+"/"+dictSoft['namefolderWin']
-                else :
-                    return False
-
-            for racine, sous_dossiers, fichiers in os.walk(directorySoft):
-                for fichier in fichiers:
-                    chemin_fichier = os.path.join(racine, fichier)
-                    # Supprime si le fichier n'est pas dans la liste des fichiers à conserver
-                    if fichier not in listFileNoSuppr:
-                        if osLinux == True:
-                            os.remove(chemin_fichier)
-                        else :
-                            os.system(f'del /f /q "{chemin_fichier}"')
-
-            for racine, sous_dossiers, fichiers in os.walk(directorySoft, topdown=False):
-                for fichier in fichiers:
-                    chemin_fichier = os.path.join(racine, fichier)
-                    if fichier not in listFileNoSuppr:
-                        os.remove(chemin_fichier)
-                for sous_dossier in sous_dossiers:
-                    chemin_sous_dossier = os.path.join(racine, sous_dossier)
-                    if not os.listdir(chemin_sous_dossier):
-                        os.rmdir(chemin_sous_dossier)
-
-            # Telecharger la nouvelle version du logiciel dans un dossier de cache
-            if(osLinux == True):
-                link = dictSoft["linkLinux"]
-                fileName = "tmp/"+dictSoft["nameziplinux"]
-            else :
-                if (osWindows == True):
-                    link = dictSoft["linkWin"]
-                    fileName = "tmp/"+dictSoft["namezipwin"]
-                else :
-                    return False
-            if (link == ""):
-                return False
-            else :
-                urllib.request.urlretrieve(link,fileName)
-                if not os.path.exists(fileName):
-                    return False
-                if not os.path.exists("tmp/"):
-                    os.makedirs("tmp/")
-                with zipfile.ZipFile(fileName, 'r') as zip_ref:
-                    zip_ref.extractall("tmp/")
-                    zip_ref.close()
-
-            # Copier les fichiers de la nouvelle version dans le dossier du logiciel
-            for root, dirs, files in os.walk("tmp/" + dictSoft["namefolderLinux"]):
-                for file in files:
-                    if file not in listFileNoSuppr:
-                        src_file = os.path.join(root, file)
-                        dest_file = os.path.join(directorySoft, os.path.relpath(src_file, "tmp/" + dictSoft["namefolderLinux"]))
-                        dest_dir = os.path.dirname(dest_file)
-                        if not os.path.exists(dest_dir):
-                            os.makedirs(dest_dir)
-                        shutil.copy2(src_file, dest_file)
-
-
-
-            # Mettre a jour le fichier de version
-            with open(f"{directorySoft}/VERSION", "w") as file:
-                file.write("VERSION="+dictSoft["version"]+"\n")
-                file.write("NAME="+soft.upper())
-                file.close()
-
-            for filename in os.listdir("tmp/"):
-                file_path = os.path.join("tmp/", filename)
-                if os.path.isfile(file_path) or os.path.islink(file_path):
-                    os.unlink(file_path)
-                elif os.path.isdir(file_path):
-                    shutil.rmtree(file_path)
-
-            return True
-        else :
+        if soft not in softUpdated:
             return False
+
+        dictSofts = self.__depotFile.dictJson()
+        dictSoft = dictSofts[soft]
+        osLinux = self.__system.osLinux()
+        osWindows = self.__system.osWindows()
+
+        listFileNoSuppr = dictSoft["listFileUser"] + ["VERSION"]
+        directorySoft = ""
+        if osLinux:
+            listFileNoSuppr.append("lauch.sh")
+            directorySoft = self.__emplacementSoft + "/" + dictSoft['namefolderLinux']
+        elif osWindows:
+            directorySoft = self.__emplacementSoft + "/" + dictSoft['namefolderWin']
+        else:
+            return False
+
+        for root, _, files in os.walk(directorySoft):
+            for file in files:
+                if file not in listFileNoSuppr:
+                    os.remove(os.path.join(root, file))
+
+        for root, dirs, files in os.walk(directorySoft, topdown=False):
+            for file in files:
+                if file not in listFileNoSuppr:
+                    os.remove(os.path.join(root, file))
+            for dir in dirs:
+                dir_path = os.path.join(root, dir)
+                if not os.listdir(dir_path):
+                    os.rmdir(dir_path)
+
+        link = dictSoft["linkLinux"] if osLinux else dictSoft["linkWin"]
+        fileName = "tmp/" + (dictSoft["nameziplinux"] if osLinux else dictSoft["namezipwin"])
+
+        if not link:
+            return False
+
+        urllib.request.urlretrieve(link, fileName)
+        if not os.path.exists(fileName):
+            return False
+        if not os.path.exists("tmp/"):
+            os.makedirs("tmp/")
+        with zipfile.ZipFile(fileName, 'r') as zip_ref:
+            zip_ref.extractall("tmp/")
+
+        for root, _, files in os.walk("tmp/" + dictSoft["namefolderLinux"]):
+            for file in files:
+                if file not in listFileNoSuppr:
+                    src_file = os.path.join(root, file)
+                    dest_file = os.path.join(directorySoft, os.path.relpath(src_file, "tmp/" + dictSoft["namefolderLinux"]))
+                    dest_dir = os.path.dirname(dest_file)
+                    if not os.path.exists(dest_dir):
+                        os.makedirs(dest_dir)
+                    shutil.copy2(src_file, dest_file)
+
+        with open(f"{directorySoft}/VERSION", "w") as file:
+            file.write("VERSION=" + dictSoft["version"] + "\n")
+            file.write("NAME=" + soft.upper())
+
+        for filename in os.listdir("tmp/"):
+            file_path = os.path.join("tmp/", filename)
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+
+        return True
 
     def install(self, soft : str):
         softInstalled = self.getSoftInstall()
