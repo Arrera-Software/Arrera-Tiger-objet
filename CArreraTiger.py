@@ -156,11 +156,31 @@ class CArreraTiger :
                     zip_ref.extractall("tmp/")
                     zip_ref.close()
 
-            # Copier les fichier de la nouvelle version dans le dossier du logiciel
+            # Copier les fichiers de la nouvelle version dans le dossier du logiciel
+            for root, dirs, files in os.walk("tmp/" + dictSoft["namefolderLinux"]):
+                for file in files:
+                    if file not in listFileNoSuppr:
+                        src_file = os.path.join(root, file)
+                        dest_file = os.path.join(directorySoft, os.path.relpath(src_file, "tmp/" + dictSoft["namefolderLinux"]))
+                        dest_dir = os.path.dirname(dest_file)
+                        if not os.path.exists(dest_dir):
+                            os.makedirs(dest_dir)
+                        shutil.copy2(src_file, dest_file)
 
-            # Supprimer le dossier de cache
+
 
             # Mettre a jour le fichier de version
+            with open(f"{directorySoft}/VERSION", "w") as file:
+                file.write("VERSION="+dictSoft["version"]+"\n")
+                file.write("NAME="+soft.upper())
+                file.close()
+
+            for filename in os.listdir("tmp/"):
+                file_path = os.path.join("tmp/", filename)
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
 
             return True
         else :
