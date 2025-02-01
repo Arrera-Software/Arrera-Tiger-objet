@@ -423,3 +423,7 @@ class CArreraTiger :
         nameApp = ' '.join(word.capitalize() for word in nameApp.split())
 
         return nameApp
+
+    def getIMGSoft(self,soft):
+        dictSoft = self.__depotFile.dictJson()
+        return dictSoft[soft]["img"]

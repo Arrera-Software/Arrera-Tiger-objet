@@ -5,9 +5,11 @@ def main():
     objTiger = CArreraTiger("tigerConf.json")
     sortieFolder =  objTiger.loadEmplacementFile()
 
+
     if (objTiger.loadDepots("https://arrera-software.fr/depots.json")==True):
         print("Depot chargé")
         print(objTiger.getSoftAvailable())
+        print(objTiger.getIMGSoft("six"))
         if sortieFolder == False:
             if objTiger.setEmplacementArreraSoft(fd.askdirectory()) == True:
                 print("Emplacement enregistré")
