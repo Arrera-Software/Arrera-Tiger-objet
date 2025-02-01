@@ -241,15 +241,15 @@ class CArreraTiger :
                                     fileName = fileName.replace("/","\\")
                                     os.system(f'del /f /q "{fileName}"')
                                     # Creation de variable pour le raccourci
-                                    emplacementExe = r""+self.__emplacementSoft+dictSoft["namefolderWin"]+"/"+dictSoft["nameexewin"]
-                                    shorcutPath = r""+str(os.path.join(os.environ['APPDATA'], 'Microsoft', 'Windows', 'Start Menu'))+"\\"+soft+".lnk"
-                                    workFolder = r""+self.__emplacementSoft+dictSoft["namefolderWin"]
+                                    emplacementExe = r""+self.__emplacementSoft+"/"+dictSoft["namefolderWin"]+"/"+dictSoft["nameexewin"]
+                                    shorcutPath = r""+str(os.path.join(os.environ['APPDATA'], 'Microsoft', 'Windows', 'Start Menu','Programmes'))+"\\"+soft+".lnk"
+                                    workFolder = r""+self.__emplacementSoft+"/"+dictSoft["namefolderWin"]
 
                                     # Debut creation raccourci
                                     shell = win32com.client.Dispatch("WScript.Shell")
                                     shortcut = shell.CreateShortCut(shorcutPath)
-                                    shortcut.TargetPath = emplacementExe
-                                    shortcut.WorkingDirectory = workFolder
+                                    shortcut.TargetPath =  os.path.join(emplacementExe)
+                                    shortcut.WorkingDirectory = os.path.join(self.__emplacementSoft, dictSoft["namefolderWin"])
                                     shortcut.Description = self.__formatNameApp(soft)
                                     # Mise en place de l'icon du raccourci si elle existe
                                     icon = dictSoft["iconWin"]
@@ -258,7 +258,7 @@ class CArreraTiger :
                                         shortcut.IconLocation = iconLnk
                                     # Sauvegarde du raccourci
                                     shortcut.save()
-                                    directorySoft = self.__emplacementSoft+dictSoft["namefolderWin"]
+                                    directorySoft = self.__emplacementSoft+"/"+dictSoft["namefolderWin"]
 
                             # Ecriture du fichier de version
                             with open(f"{directorySoft}/VERSION", "w") as file:
@@ -400,7 +400,7 @@ class CArreraTiger :
                 else :
                     if (self.__system.osWindows() == True):
                         folder = self.__emplacementSoft+"/"+dictSofts[soft]["namefolderWin"]
-                        shorcutPath = r""+str(os.path.join(os.environ['APPDATA'], 'Microsoft', 'Windows', 'Start Menu'))+"\\"+soft+".lnk"
+                        shorcutPath = r""+str(os.path.join(os.environ['APPDATA'], 'Microsoft', 'Windows', 'Start Menu','Programmes'))+"\\"+soft+".lnk"
                         os.system(f'del /f /q "{shorcutPath}"')
                     else :
                         return False
