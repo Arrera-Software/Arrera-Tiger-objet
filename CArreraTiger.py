@@ -421,7 +421,7 @@ class CArreraTiger :
                 else :
                     if (self.__system.osWindows() == True):
                         folder = self.__emplacementSoft+"/"+dictSofts[soft]["namefolderWin"]
-                        shorcutPath = r""+str(os.path.join(os.environ['APPDATA'], 'Microsoft', 'Windows', 'Start Menu','Programmes'))+"\\"+soft+".lnk"
+                        shorcutPath = r""+str(os.path.join(os.environ['APPDATA'], 'Microsoft', 'Windows', 'Start Menu','Programs'))+"\\"+soft+".lnk"
                         os.system(f'del /f /q "{shorcutPath}"')
                     else :
                         return False
