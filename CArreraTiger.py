@@ -1,7 +1,7 @@
-from jsonWorkOnline import*
-from travailJSON import*
+from librairy.jsonWorkOnline import*
+from librairy.travailJSON import*
 import urllib.request
-from dectectionOS import*
+from librairy.dectectionOS import*
 import zipfile
 import os
 from pathlib import Path
