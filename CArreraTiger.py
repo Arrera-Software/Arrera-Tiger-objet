@@ -128,8 +128,15 @@ class CArreraTiger :
                 if not os.listdir(dir_path):
                     os.rmdir(dir_path)
 
-        link = dictSoft["linkLinux"] if osLinux else dictSoft["linkWin"]
-        fileName = "tmp/" + (dictSoft["nameziplinux"] if osLinux else dictSoft["namezipwin"])
+        if osLinux == True :
+            link = dictSoft["linkLinux"]
+            fileName = "tmp/" + dictSoft["nameziplinux"]
+        else:
+            if osWindows == True :
+                link = dictSoft["linkWin"]
+                fileName = "tmp\\" + dictSoft["namezipwin"]
+            else:
+                return False
 
         if not link:
             return False
@@ -142,15 +149,29 @@ class CArreraTiger :
         with zipfile.ZipFile(fileName, 'r') as zip_ref:
             zip_ref.extractall("tmp/")
 
-        for root, _, files in os.walk("tmp/" + dictSoft["namefolderLinux"]):
-            for file in files:
-                if file not in listFileNoSuppr:
-                    src_file = os.path.join(root, file)
-                    dest_file = os.path.join(directorySoft, os.path.relpath(src_file, "tmp/" + dictSoft["namefolderLinux"]))
-                    dest_dir = os.path.dirname(dest_file)
-                    if not os.path.exists(dest_dir):
-                        os.makedirs(dest_dir)
-                    shutil.copy2(src_file, dest_file)
+        if osLinux == True:
+            for root, _, files in os.walk("tmp/" + dictSoft["namefolderLinux"]):
+                for file in files:
+                    if file not in listFileNoSuppr:
+                        src_file = os.path.join(root, file)
+                        dest_file = os.path.join(directorySoft, os.path.relpath(src_file, "tmp/" + dictSoft["namefolderLinux"]))
+                        dest_dir = os.path.dirname(dest_file)
+                        if not os.path.exists(dest_dir):
+                            os.makedirs(dest_dir)
+                        shutil.copy2(src_file, dest_file)
+        else :
+            if osWindows == True :
+                for root, _, files in os.walk("tmp\\" + dictSoft["namefolderWin"]):
+                    for file in files:
+                        if file not in listFileNoSuppr:
+                            src_file = os.path.join(root, file)
+                            dest_file = os.path.join(directorySoft, os.path.relpath(src_file, "tmp\\" + dictSoft["namefolderWin"]))
+                            dest_dir = os.path.dirname(dest_file)
+                            if not os.path.exists(dest_dir):
+                                os.makedirs(dest_dir)
+                            shutil.copy2(src_file, dest_file)
+            else :
+                return  False
 
         with open(f"{directorySoft}/VERSION", "w") as file:
             file.write("VERSION=" + dictSoft["version"] + "\n")
