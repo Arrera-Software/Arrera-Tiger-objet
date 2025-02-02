@@ -23,7 +23,7 @@
     "namefolderWin" : "Ryley-windows-x64",
     "namefolderLinux" : "Ryley-linux-x64",
     "nameexelinux": "ryley",
-    "nameexewin": "",
+    "nameexewin": "ryley.exe",
     "iconLinux": "Ryley.png",
     "iconWin": "Ryley.ico",
     "listFileUser": ["configLynx.json",
