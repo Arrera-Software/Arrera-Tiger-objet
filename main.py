@@ -2,7 +2,7 @@ from CArreraTiger import*
 import tkinter.filedialog as fd
 
 def main():
-    objTiger = CArreraTiger("tigerConf.json")
+    objTiger = CArreraTiger("json/tigerConf.json")
     sortieFolder =  objTiger.loadEmplacementFile()
 
 
