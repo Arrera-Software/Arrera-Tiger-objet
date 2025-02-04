@@ -1,16 +1,16 @@
 {
   "arrera-interface": {
-    "version" : "IXXXX-XXX",
-    "linkWin" : "https://github.com/Arrera-Software/Arrera-Interface/releases/download/I2024-2.05.1/Arrera-interface-Windows.zip",
-    "linkLinux" : "https://github.com/Arrera-Software/Arrera-Interface/releases/download/I2024-2.05.1/Arrera-Interface-Linux.zip",
-    "namezipwin" : "Arrera-interface-Windows.zip",
-    "nameziplinux" : "Arrera-Interface-Linux.zip ",
-    "namefolderWin" : "Arrera-interface-Windows",
+    "version" : "I2024-2.05.2",
+    "linkWin" : "https://github.com/Arrera-Software/Arrera-Interface/releases/download/I2024-2.05.2/Arrera-Interface-Windows.zip",
+    "linkLinux" : "https://github.com/Arrera-Software/Arrera-Interface/releases/download/I2024-2.05.2/Arrera-Interface-Linux.zip",
+    "namezipwin" : "Arrera-Interface-Windows.zip",
+    "nameziplinux" : "Arrera-Interface-Linux.zip",
+    "namefolderWin" : "Arrera-Interface-Windows",
     "namefolderLinux" : "Arrera-Interface-Linux",
     "nameexelinux": "Arrera-Interface",
     "nameexewin": "Arrera-Interface.exe",
     "iconLinux": "ArreraI2024.png",
-    "iconWin": "ArreraI2024.png",
+    "iconWin": "ArreraI2024.ico",
     "listFileUser": [],
     "img" : "https://raw.githubusercontent.com/Arrera-Software/Arrera-Interface/refs/heads/master/ArreraI2024.png"},
 
