@@ -15,7 +15,7 @@
     "img" : "https://raw.githubusercontent.com/Arrera-Software/Arrera-Interface/refs/heads/master/ArreraI2024.png"},
 
   "ryley": {
-    "version" : "I2025-1.00",
+    "version" : "I2025-1.01",
     "linkWin" : "https://github.com/Arrera-Software/Ryley/releases/download/I2025-1.01/Ryley-windows-x64.zip",
     "linkLinux" : "https://github.com/Arrera-Software/Ryley/releases/download/I2025-1.01/Ryley-linux-x64.zip",
     "namezipwin" : "Ryley-windows-x64.zip",
@@ -31,8 +31,8 @@
 
   "six": {
     "version" : "I2025-1.00",
-    "linkWin" : "https://github.com/Arrera-Software/Six/releases/download/I2025-1.01/Six-windows-x64.zip",
-    "linkLinux" : "https://github.com/Arrera-Software/Six/releases/download/I2025-1.01/Six-linux-x64.zip",
+    "linkWin" : "https://github.com/Arrera-Software/Six/releases/download/I2025-1.00/Six-windows-x64.zip",
+    "linkLinux" : "https://github.com/Arrera-Software/Six/releases/download/I2025-1.00/Six-linux-x64.zip",
     "namezipwin" : "Six-windows-x64.zip",
     "nameziplinux" : "Six-linux-x64.zip",
     "namefolderWin" : "Six-windows-x64",
