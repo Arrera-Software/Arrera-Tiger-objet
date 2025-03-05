@@ -17,6 +17,7 @@ def main():
             print("Emplacement déjà enregistré")
         print(objTiger.getSoftInstall())
         print(objTiger.checkUpdate())
+        objTiger.verifFileJson()
         sortie = input("1.Installer\n2.Uninstaller\n3.Update\n#")
 
         match sortie:

@@ -236,11 +236,12 @@ class CArreraTiger :
                                 os.chmod(f"{self.__emplacementSoft}/{dictSoft['namefolderLinux']}/lauch.sh",0o777)
                                 os.chmod(f"{self.__emplacementSoft}/{dictSoft['namefolderLinux']}/{nameExe}",0o777)
                                 # Ecrire le fichier .desktop
+                                emplacementExe = self.__emplacementSoft + "/" + dictSoft['namefolderLinux'] + "/lauch.sh"
                                 contentDesk = ("[Desktop Entry]" +
                                                "\nVersion=" + dictSoft["version"] +
                                                "\nType=Application" +
                                                "\nName=" + self.__formatNameApp(soft) +
-                                               "\nExec=" + self.__emplacementSoft + "/" + dictSoft['namefolderLinux'] + "/lauch.sh" +
+                                               "\nExec=" + emplacementExe +
                                                "\nTerminal=false" +
                                                "\nStartupNotify=false")
                                 # Ajouter l'icone si elle existe
@@ -286,7 +287,7 @@ class CArreraTiger :
                                 file.write("VERSION="+dictSoft["version"]+"\n")
                                 file.write("NAME="+soft.upper())
                                 file.close()
-
+                            self.__tigerFile.EcritureJSON(soft,emplacementExe)
                             return True
                         except FileNotFoundError:
                             return False
@@ -361,42 +362,35 @@ class CArreraTiger :
                             listOut.append(softAvailable[i])
 
                 if (len(listOut) == 0):
+                    self.__tigerFile.EcritureJSON("arrera-interface","nothing")
+                    self.__tigerFile.EcritureJSON("ryley","nothing")
+                    self.__tigerFile.EcritureJSON("six","nothing")
+                    self.__tigerFile.EcritureJSON("arrera-raccourci","nothing")
+                    self.__tigerFile.EcritureJSON("arrera-postite","nothing")
+                    self.__tigerFile.EcritureJSON("arrera-video-download","nothing")
+                    self.__tigerFile.EcritureJSON("arrera-copilote","nothing")
                     return ["Aucun logiciel installé"]
                 else :
-                    if ("arrera-interface" in listOut):
-                        self.__tigerFile.EcritureJSON("arrera-interface","1")
-                    else :
-                        self.__tigerFile.EcritureJSON("arrera-interface","0")
+                    if ("arrera-interface" not in listOut):
+                        self.__tigerFile.EcritureJSON("arrera-interface","nothing")
 
-                    if ("ryley" in listOut):
-                        self.__tigerFile.EcritureJSON("ryley","1")
-                    else :
-                        self.__tigerFile.EcritureJSON("ryley","0")
+                    if ("ryley" not in listOut):
+                        self.__tigerFile.EcritureJSON("ryley","nothing")
 
-                    if ("six" in listOut):
-                        self.__tigerFile.EcritureJSON("six","1")
-                    else :
-                        self.__tigerFile.EcritureJSON("six","0")
+                    if ("six" not in listOut):
+                        self.__tigerFile.EcritureJSON("six","nothing")
 
-                    if ("arrera-raccourci" in listOut):
-                        self.__tigerFile.EcritureJSON("arrera-raccourci","1")
-                    else :
-                        self.__tigerFile.EcritureJSON("arrera-raccourci","0")
+                    if ("arrera-raccourci" not in listOut):
+                        self.__tigerFile.EcritureJSON("arrera-raccourci","nothing")
 
-                    if ("arrera-postite" in listOut):
-                        self.__tigerFile.EcritureJSON("arrera-postite","1")
-                    else :
-                        self.__tigerFile.EcritureJSON("arrera-postite","0")
+                    if ("arrera-postite" not in listOut):
+                        self.__tigerFile.EcritureJSON("arrera-postite","nothing")
 
-                    if ("arrera-video-download" in listOut):
-                        self.__tigerFile.EcritureJSON("arrera-video-download","1")
-                    else :
-                        self.__tigerFile.EcritureJSON("arrera-video-download","0")
+                    if ("arrera-video-download" not in listOut):
+                        self.__tigerFile.EcritureJSON("arrera-video-download","nothing")
 
-                    if ("arrera-copilote" in listOut):
-                        self.__tigerFile.EcritureJSON("arrera-copilote","1")
-                    else :
-                        self.__tigerFile.EcritureJSON("arrera-copilote","0")
+                    if ("arrera-copilote" not in listOut):
+                        self.__tigerFile.EcritureJSON("arrera-copilote","nothing")
 
                     return listOut
 
@@ -448,3 +442,86 @@ class CArreraTiger :
     def getIMGSoft(self,soft):
         dictSoft = self.__depotFile.dictJson()
         return dictSoft[soft]["img"]
+
+
+    def verifFileJson(self):
+        print("bite")
+        if (self.__emplacementSoft == ""):
+            print("false")
+            return False
+        else :
+            print("true")
+            softAvailable = self.getSoftAvailable()
+            dictSoft = self.__depotFile.dictJson()
+            windowsOS = self.__system.osWindows()
+            linuxOs = self.__system.osLinux()
+            listOut = []
+
+            try:
+                # Convertir le chemin en objet Path
+                chemin_path = Path(self.__emplacementSoft).resolve()  # resolve() normalise le chemin
+                # Vérifier si le chemin existe
+                if not chemin_path.exists():
+                    return ["le chemin {self.__emplacementSoft} n'existe pas"]
+                # Lister uniquement les dossiers
+                dossiers = [str(d) for d in chemin_path.iterdir() if d.is_dir()]
+
+                for i in range(0,len(dossiers)):
+                    if linuxOs == True:
+                        dossiers[i] = (dossiers[i].replace
+                                       (self.__emplacementSoft,"").replace
+                                       ("/","").replace
+                                       ("\\",""))
+                    else :
+                        if windowsOS == True:
+                            emplacementsoft = self.__emplacementSoft.replace("/","\\")
+                            dossiers[i] = (dossiers[i].replace
+                                           (emplacementsoft,"").replace
+                                           ("/","").replace
+                                           ("\\",""))
+
+
+                for i in range(0,len(softAvailable)):
+                    if (windowsOS == True) and (dictSoft[softAvailable[i]]["namefolderWin"] in dossiers):
+                        listOut.append(softAvailable[i])
+                    else :
+                        if (linuxOs == True) and (dictSoft[softAvailable[i]]["namefolderLinux"] in dossiers):
+                            listOut.append(softAvailable[i])
+
+                if (len(listOut) == 0):
+                    self.__tigerFile.EcritureJSON("arrera-interface","nothing")
+                    self.__tigerFile.EcritureJSON("ryley","nothing")
+                    self.__tigerFile.EcritureJSON("six","nothing")
+                    self.__tigerFile.EcritureJSON("arrera-raccourci","nothing")
+                    self.__tigerFile.EcritureJSON("arrera-postite","nothing")
+                    self.__tigerFile.EcritureJSON("arrera-video-download","nothing")
+                    self.__tigerFile.EcritureJSON("arrera-copilote","nothing")
+
+
+                if ("arrera-interface" not in listOut):
+                    self.__tigerFile.EcritureJSON("arrera-interface","nothing")
+
+                if ("ryley" not in listOut):
+                    self.__tigerFile.EcritureJSON("ryley","nothing")
+
+                if ("six" not in listOut):
+                    self.__tigerFile.EcritureJSON("six","nothing")
+
+                if ("arrera-raccourci" not in listOut):
+                    self.__tigerFile.EcritureJSON("arrera-raccourci","nothing")
+
+                if ("arrera-postite" not in listOut):
+                    self.__tigerFile.EcritureJSON("arrera-postite","nothing")
+
+                if ("arrera-video-download" not in listOut):
+                    self.__tigerFile.EcritureJSON("arrera-video-download","nothing")
+
+                if ("arrera-copilote" not in listOut):
+                    self.__tigerFile.EcritureJSON("arrera-copilote","nothing")
+
+                return True
+
+            except PermissionError:
+                return False
+            except Exception as e:
+                return False
