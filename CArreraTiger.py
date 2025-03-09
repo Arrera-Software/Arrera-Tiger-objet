@@ -41,7 +41,6 @@ class CArreraTiger :
             return False
         else :
             self.__emplacementSoft = emplacementSoft
-            print(emplacementSoft)
             self.__tigerFile.EcritureJSON("folder",self.__emplacementSoft)
             return True
 
@@ -55,7 +54,7 @@ class CArreraTiger :
         softInstalled = self.getSoftInstall()
 
         if softInstalled[0] == "Aucun logiciel installé":
-            return
+            return []
         else :
             osLinux = self.__system.osLinux()
             osWindows = self.__system.osWindows()
@@ -64,12 +63,12 @@ class CArreraTiger :
 
             for i in range(0,len(softInstalled)):
                 if (osLinux == True):
-                   directorySoft = self.__emplacementSoft+"/"+dictSoft[softInstalled[i]]["namefolderLinux"]
+                    directorySoft = self.__emplacementSoft+"/"+dictSoft[softInstalled[i]]["namefolderLinux"]
                 else :
                     if (osWindows == True):
                         directorySoft = self.__emplacementSoft+"/"+dictSoft[softInstalled[i]]["namefolderWin"]
                     else :
-                        return
+                        return []
 
                 if os.path.exists(directorySoft):
                     versionInstalled = ""
@@ -87,7 +86,7 @@ class CArreraTiger :
                         if (versionInstalled != versionOnline):
                             listOut.append(softInstalled[i])
                 else :
-                    return
+                    return []
 
             return  listOut
 
