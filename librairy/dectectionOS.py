@@ -15,4 +15,9 @@ class OS :
             return True
         else :
             return False
-                
+
+    def osMac(self):
+        if self.os == "Darwin":
+            return True
+        else :
+            return False
