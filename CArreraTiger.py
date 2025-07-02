@@ -58,17 +58,19 @@ class CArreraTiger :
         else :
             osLinux = self.__system.osLinux()
             osWindows = self.__system.osWindows()
+            osMac = self.__system.osMac()
             listOut = []
             dictSoft = self.__depotFile.dictJson()
 
             for i in range(0,len(softInstalled)):
-                if (osLinux == True):
+                if osLinux:
                     directorySoft = self.__emplacementSoft+"/"+dictSoft[softInstalled[i]]["namefolderLinux"]
+                elif osWindows:
+                    directorySoft = self.__emplacementSoft+"/"+dictSoft[softInstalled[i]]["namefolderWin"]
+                elif osMac:
+                    directorySoft = self.__emplacementSoft+"/"+dictSoft[softInstalled[i]]["namefoldermac"]
                 else :
-                    if (osWindows == True):
-                        directorySoft = self.__emplacementSoft+"/"+dictSoft[softInstalled[i]]["namefolderWin"]
-                    else :
-                        return []
+                    return []
 
                 if os.path.exists(directorySoft):
                     versionInstalled = ""
@@ -102,6 +104,7 @@ class CArreraTiger :
         dictSoft = dictSofts[soft]
         osLinux = self.__system.osLinux()
         osWindows = self.__system.osWindows()
+        osMac = self.__system.osMac()
 
         listFileNoSuppr = dictSoft["listFileUser"] + ["VERSION"]
         directorySoft = ""
@@ -110,6 +113,8 @@ class CArreraTiger :
             directorySoft = self.__emplacementSoft + "/" + dictSoft['namefolderLinux']
         elif osWindows:
             directorySoft = self.__emplacementSoft + "/" + dictSoft['namefolderWin']
+        elif osMac:
+            directorySoft = self.__emplacementSoft + "/" + dictSoft["namefoldermac"]
         else:
             return False
 
@@ -127,15 +132,17 @@ class CArreraTiger :
                 if not os.listdir(dir_path):
                     os.rmdir(dir_path)
 
-        if osLinux == True :
+        if osLinux:
             link = dictSoft["linkLinux"]
             fileName = "tmp/" + dictSoft["nameziplinux"]
+        elif osWindows:
+            link = dictSoft["linkWin"]
+            fileName = "tmp\\" + dictSoft["namezipwin"]
+        elif osMac:
+            link = dictSoft["linkMac"]
+            fileName = "tmp/" + dictSoft["namezipmac"]
         else:
-            if osWindows == True :
-                link = dictSoft["linkWin"]
-                fileName = "tmp\\" + dictSoft["namezipwin"]
-            else:
-                return False
+            return False
 
         if not link:
             return False
@@ -197,17 +204,20 @@ class CArreraTiger :
             else:
                 linuxOs = self.__system.osLinux()
                 windowsOS = self.__system.osWindows()
+                osMac = self.__system.osMac()
                 dictSofts = self.__depotFile.dictJson()
                 dictSoft = dictSofts[soft]
-                if (windowsOS == True):
+                if windowsOS:
                     link = dictSoft["linkWin"]
                     fileName = self.__emplacementSoft+"/"+dictSoft["namezipwin"]
+                elif linuxOs:
+                    link = dictSoft["linkLinux"]
+                    fileName = self.__emplacementSoft+dictSoft["nameziplinux"]
+                elif osMac:
+                    link = dictSoft["linkMac"]
+                    fileName = self.__emplacementSoft+dictSoft["namezipmac"]
                 else :
-                    if (linuxOs == True):
-                        link = dictSoft["linkLinux"]
-                        fileName = self.__emplacementSoft+dictSoft["nameziplinux"]
-                    else :
-                        return False
+                    return False
 
                 if (link == ""):
                     return False
@@ -255,7 +265,7 @@ class CArreraTiger :
                                 directorySoft = self.__emplacementSoft+"/"+dictSoft['namefolderLinux']
 
                             else :
-                                if (windowsOS == True):
+                                if windowsOS:
                                     # Importation de la librairy pour cree un raccourci
                                     import win32com.client
                                     # Suppression du fichier zip
@@ -302,17 +312,22 @@ class CArreraTiger :
 
         windowsOS = self.__system.osWindows()
         linuxOs = self.__system.osLinux()
+        osMac = self.__system.osMac()
         for i in range(0,len(listeAllSoft)):
-            if (windowsOS == True and linuxOs == False
+            if (windowsOS == True and linuxOs == False and osMac == False
                     and dictAllSoft[listeAllSoft[i]]["namezipwin"]!=""
                     and dictAllSoft[listeAllSoft[i]]["linkWin"]!=""
                     and dictAllSoft[listeAllSoft[i]]["namefolderWin"]!=""):
                 listeSoft.append(listeAllSoft[i])
-            else :
-                if (windowsOS == False and linuxOs == True
+            elif (windowsOS == False and linuxOs == True and osMac == False
                         and dictAllSoft[listeAllSoft[i]]["nameziplinux"]!=""
                         and dictAllSoft[listeAllSoft[i]]["linkLinux"]!=""
                         and dictAllSoft[listeAllSoft[i]]["namefolderLinux"]!=""):
+                    listeSoft.append(listeAllSoft[i])
+            elif (windowsOS == False and linuxOs == False and osMac == True
+                        and dictAllSoft[listeAllSoft[i]]["namezipmac"]!=""
+                        and dictAllSoft[listeAllSoft[i]]["linkMac"]!=""
+                        and dictAllSoft[listeAllSoft[i]]["namefoldermac"]!=""):
                     listeSoft.append(listeAllSoft[i])
 
         if (len(listeSoft) == 0):
