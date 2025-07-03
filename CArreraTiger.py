@@ -83,9 +83,9 @@ class CArreraTiger :
                                 versionInstalled = version
                         fichier.close()
 
-                    if (versionInstalled != "IXXXX-XXX"):
+                    if versionInstalled != "IXXXX-XXX":
                         versionOnline = dictSoft[softInstalled[i]]["version"]
-                        if (versionInstalled != versionOnline):
+                        if versionInstalled != versionOnline:
                             listOut.append(softInstalled[i])
                 else :
                     return []
@@ -512,25 +512,25 @@ class CArreraTiger :
                     self.__tigerFile.EcritureJSON("arrera-copilote","nothing")
 
 
-                if ("arrera-interface" not in listOut):
+                if "arrera-interface" not in listOut:
                     self.__tigerFile.EcritureJSON("arrera-interface","nothing")
 
-                if ("ryley" not in listOut):
+                if "ryley" not in listOut:
                     self.__tigerFile.EcritureJSON("ryley","nothing")
 
-                if ("six" not in listOut):
+                if "six" not in listOut:
                     self.__tigerFile.EcritureJSON("six","nothing")
 
-                if ("arrera-raccourci" not in listOut):
+                if "arrera-raccourci" not in listOut:
                     self.__tigerFile.EcritureJSON("arrera-raccourci","nothing")
 
-                if ("arrera-postite" not in listOut):
+                if "arrera-postite" not in listOut:
                     self.__tigerFile.EcritureJSON("arrera-postite","nothing")
 
-                if ("arrera-video-download" not in listOut):
+                if "arrera-video-download" not in listOut:
                     self.__tigerFile.EcritureJSON("arrera-video-download","nothing")
 
-                if ("arrera-copilote" not in listOut):
+                if "arrera-copilote" not in listOut:
                     self.__tigerFile.EcritureJSON("arrera-copilote","nothing")
 
                 return True
