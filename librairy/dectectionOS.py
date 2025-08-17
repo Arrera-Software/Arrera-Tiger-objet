@@ -2,17 +2,13 @@ import platform
 
 class OS :
     def __init__(self) :
-        self.os = platform.system()
+        self.__os = platform.system()
         
     def osWindows(self):
-        if self.os == "Windows":
-           return True
-        else :
-            return False
+        return self.__os == "Windows"
     
     def osLinux(self):
-        if self.os == "Linux":
-            return True
-        else :
-            return False
-                
+        return self.__os == "Linux"
+
+    def osMac(self):
+        return self.__os == "Darwin"
