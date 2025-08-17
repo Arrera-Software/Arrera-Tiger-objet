@@ -58,7 +58,6 @@ class CArreraTiger :
         else :
             osLinux = self.__system.osLinux()
             osWindows = self.__system.osWindows()
-            osMac = self.__system.osMac()
             listOut = []
             dictSoft = self.__depotFile.dictJson()
 
@@ -67,8 +66,6 @@ class CArreraTiger :
                     directorySoft = self.__emplacementSoft+"/"+dictSoft[softInstalled[i]]["namefolderLinux"]
                 elif osWindows:
                     directorySoft = self.__emplacementSoft+"/"+dictSoft[softInstalled[i]]["namefolderWin"]
-                elif osMac:
-                    directorySoft = self.__emplacementSoft+"/"+dictSoft[softInstalled[i]]["namefoldermac"]
                 else :
                     return []
 
@@ -83,9 +80,9 @@ class CArreraTiger :
                                 versionInstalled = version
                         fichier.close()
 
-                    if versionInstalled != "IXXXX-XXX":
+                    if (versionInstalled != "IXXXX-XXX"):
                         versionOnline = dictSoft[softInstalled[i]]["version"]
-                        if versionInstalled != versionOnline:
+                        if (versionInstalled != versionOnline):
                             listOut.append(softInstalled[i])
                 else :
                     return []
@@ -104,7 +101,6 @@ class CArreraTiger :
         dictSoft = dictSofts[soft]
         osLinux = self.__system.osLinux()
         osWindows = self.__system.osWindows()
-        osMac = self.__system.osMac()
 
         listFileNoSuppr = dictSoft["listFileUser"] + ["VERSION"]
         directorySoft = ""
@@ -113,8 +109,6 @@ class CArreraTiger :
             directorySoft = self.__emplacementSoft + "/" + dictSoft['namefolderLinux']
         elif osWindows:
             directorySoft = self.__emplacementSoft + "/" + dictSoft['namefolderWin']
-        elif osMac:
-            directorySoft = self.__emplacementSoft + "/" + dictSoft["namefoldermac"]
         else:
             return False
 
@@ -138,9 +132,6 @@ class CArreraTiger :
         elif osWindows:
             link = dictSoft["linkWin"]
             fileName = "tmp\\" + dictSoft["namezipwin"]
-        elif osMac:
-            link = dictSoft["linkMac"]
-            fileName = "tmp/" + dictSoft["namezipmac"]
         else:
             return False
 
@@ -204,20 +195,17 @@ class CArreraTiger :
             else:
                 linuxOs = self.__system.osLinux()
                 windowsOS = self.__system.osWindows()
-                osMac = self.__system.osMac()
                 dictSofts = self.__depotFile.dictJson()
                 dictSoft = dictSofts[soft]
-                if windowsOS:
+                if (windowsOS == True):
                     link = dictSoft["linkWin"]
                     fileName = self.__emplacementSoft+"/"+dictSoft["namezipwin"]
-                elif linuxOs:
-                    link = dictSoft["linkLinux"]
-                    fileName = self.__emplacementSoft+dictSoft["nameziplinux"]
-                elif osMac:
-                    link = dictSoft["linkMac"]
-                    fileName = self.__emplacementSoft+dictSoft["namezipmac"]
                 else :
-                    return False
+                    if (linuxOs == True):
+                        link = dictSoft["linkLinux"]
+                        fileName = self.__emplacementSoft+dictSoft["nameziplinux"]
+                    else :
+                        return False
 
                 if (link == ""):
                     return False
@@ -265,7 +253,7 @@ class CArreraTiger :
                                 directorySoft = self.__emplacementSoft+"/"+dictSoft['namefolderLinux']
 
                             else :
-                                if windowsOS:
+                                if (windowsOS == True):
                                     # Importation de la librairy pour cree un raccourci
                                     import win32com.client
                                     # Suppression du fichier zip
@@ -312,22 +300,17 @@ class CArreraTiger :
 
         windowsOS = self.__system.osWindows()
         linuxOs = self.__system.osLinux()
-        osMac = self.__system.osMac()
         for i in range(0,len(listeAllSoft)):
-            if (windowsOS == True and linuxOs == False and osMac == False
+            if (windowsOS == True and linuxOs == False
                     and dictAllSoft[listeAllSoft[i]]["namezipwin"]!=""
                     and dictAllSoft[listeAllSoft[i]]["linkWin"]!=""
                     and dictAllSoft[listeAllSoft[i]]["namefolderWin"]!=""):
                 listeSoft.append(listeAllSoft[i])
-            elif (windowsOS == False and linuxOs == True and osMac == False
+            else :
+                if (windowsOS == False and linuxOs == True
                         and dictAllSoft[listeAllSoft[i]]["nameziplinux"]!=""
                         and dictAllSoft[listeAllSoft[i]]["linkLinux"]!=""
                         and dictAllSoft[listeAllSoft[i]]["namefolderLinux"]!=""):
-                    listeSoft.append(listeAllSoft[i])
-            elif (windowsOS == False and linuxOs == False and osMac == True
-                        and dictAllSoft[listeAllSoft[i]]["namezipmac"]!=""
-                        and dictAllSoft[listeAllSoft[i]]["linkMac"]!=""
-                        and dictAllSoft[listeAllSoft[i]]["namefoldermac"]!=""):
                     listeSoft.append(listeAllSoft[i])
 
         if (len(listeSoft) == 0):
@@ -512,25 +495,25 @@ class CArreraTiger :
                     self.__tigerFile.EcritureJSON("arrera-copilote","nothing")
 
 
-                if "arrera-interface" not in listOut:
+                if ("arrera-interface" not in listOut):
                     self.__tigerFile.EcritureJSON("arrera-interface","nothing")
 
-                if "ryley" not in listOut:
+                if ("ryley" not in listOut):
                     self.__tigerFile.EcritureJSON("ryley","nothing")
 
-                if "six" not in listOut:
+                if ("six" not in listOut):
                     self.__tigerFile.EcritureJSON("six","nothing")
 
-                if "arrera-raccourci" not in listOut:
+                if ("arrera-raccourci" not in listOut):
                     self.__tigerFile.EcritureJSON("arrera-raccourci","nothing")
 
-                if "arrera-postite" not in listOut:
+                if ("arrera-postite" not in listOut):
                     self.__tigerFile.EcritureJSON("arrera-postite","nothing")
 
-                if "arrera-video-download" not in listOut:
+                if ("arrera-video-download" not in listOut):
                     self.__tigerFile.EcritureJSON("arrera-video-download","nothing")
 
-                if "arrera-copilote" not in listOut:
+                if ("arrera-copilote" not in listOut):
                     self.__tigerFile.EcritureJSON("arrera-copilote","nothing")
 
                 return True
